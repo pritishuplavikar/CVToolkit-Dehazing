@@ -60,6 +60,7 @@ def aod_net(x, np_weights):
 
 	return relu(output)
 
+
 def dehaze(img_path, model_path = './pretrained_aod_net_numpy.npy'):
 	"""
 	Primary function for interfacing with the dehazing network. Provide an image path and will return a numpy image.
@@ -96,6 +97,6 @@ def dehaze_and_display(img_path, model_path = './pretrained_aod_net_numpy.npy'):
 	PIL_img.show()
 	
 
-
-if __name__ == '__main__':
-	dehaze_and_display(img_path = './Examples/sample5.jpg');
+# --------------------------- Debugging and Testing ------------------------------
+# if __name__ == '__main__':
+# 	dehaze_and_display(img_path = './Examples/sample5.jpg');
