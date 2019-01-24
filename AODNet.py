@@ -98,4 +98,4 @@ def dehaze_and_display(img_path, model_path = './pretrained_aod_net_numpy.npy'):
 
 
 if __name__ == '__main__':
-	dehaze_and_display(img_path = './Examples/sample1.jpg');
+	dehaze_and_display(img_path = './Examples/sample5.jpg');
