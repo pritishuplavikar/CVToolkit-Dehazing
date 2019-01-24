@@ -60,8 +60,10 @@ def aod_net(x, np_weights):
 
 	return relu(output)
 
-def test(img_path, model_path):
-	""" 
+def dehaze(img_path, model_path = './pretrained_aod_net_numpy.npy'):
+	"""
+	Primary function for interfacing with the dehazing network. Provide an image path and will return a numpy image.
+
 	Loading image: For the input image, cv2.imread always loads a 3-channel image which is the requirement of the AOD-Net. 
 	So load any grayscale image as a 3-channel image.
 	"""
@@ -74,20 +76,26 @@ def test(img_path, model_path):
 	np_weights = np.load(model_path).item()
 
 	output = aod_net(x, np_weights)
-
-	return np.squeeze(output)
-
-def main():
-	img_path = './sample.jpg'
-	model_path = './pretrained_aod_net_numpy.npy'
-	output = test(img_path, model_path)
+	output = np.squeeze(output)
 	output = (output*255).astype(np.uint8) # RGB numpy image array
 	output = output.transpose(1,2,0)
 
-	# Uncomment to get PIL image output
-	# from PIL import Image
-	# PIL_img = Image.fromarray(output)
-	# PIL_img.show()
+	
+	return output
+
+
+
+def dehaze_and_display(img_path, model_path = './pretrained_aod_net_numpy.npy'):
+	"""
+	Dehazes and then displays the dehazed image. 
+	"""
+	
+	dehazed_image = dehaze(img_path, model_path)
+	from PIL import Image
+	PIL_img = Image.fromarray(dehazed_image)
+	PIL_img.show()
+	
+
 
 if __name__ == '__main__':
-	main();
+	dehaze_and_display(img_path = './Examples/sample1.jpg');
